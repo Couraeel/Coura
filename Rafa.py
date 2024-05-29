@@ -1,0 +1,31 @@
+voto_totais =[]
+eleito = 0
+print("Escolha entre as seguintes opções de candidatos"
+      "\n24-Rafael // 13-Matues // 69-Ricardo // 0-NULO // 9-Encerrar")
+while True:
+    voto = int(input("Digite seu voto:"))
+
+    if voto != 24 or 13 or 69 or 0 or 9:
+        print("Esses dados não estão na base de dados")
+    if voto == 9:
+        break
+    voto_totais.append(voto)
+    if voto_totais.count(24) > voto_totais.count(13) and voto_totais.count(24) > voto_totais.count(69):
+        eleito = "Rafael"
+    if voto_totais.count(13) > voto_totais.count(24) and voto_totais.count(13) > voto_totais.count(69):
+        eleito = "Mateus"
+    if voto_totais.count(69) > voto_totais.count(24) and voto_totais.count(69) > voto_totais.count(13):
+        eleito = "Ricardo"
+if len(voto_totais) != 0:
+    porc1 = (voto_totais.count(24) / voto_totais) * 100
+    porc2 = (voto_totais.count(13) / voto_totais) * 100
+    porc3 = (voto_totais.count(69) / voto_totais) * 100
+    porcnull = (voto_totais.count(0) / voto_totais) * 100
+    print("Nesta eleição ouveram os seguintes votos{voto_totais}"
+      f"\nRafael teve: {voto_totais.count(24)} votos com {porc1:.2f}"
+      f"\nMateus teve: {voto_totais.count(13)} votos com {porc2:.2f}"
+      f"\nRicardo teve: {voto_totais.count(69)} votos com {porc3:.2f}"
+      f"\nOuveram {voto_totais.count(0)} votos nulos com {porcnull:.2f}")
+    print(f"Desta forma o eleito foi: {eleito}")
+else:
+    print("Não se obteve votos")
