@@ -1,3 +1,4 @@
+Aula Linguagem e Tecnicas de Programação I
 list = []
 print("Digite um valor para ser adicionado a lista Digite X para sair")
 while True:
