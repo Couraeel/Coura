@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wght@8..144,700&family=Roboto:ital@1&display=swap');
+
+ /* ^ importação da fonte Roboto Serif ^ */
+
+body {
+    background-color: #011f0c;
+}
+
+div.content {
+    display: block;  /* faz com que o elemento ocupe tooooda uma linha (o exemplo q eu mandei pra vcs no discord) */
+    margin: 0 auto;  /* centraliza a div */
+    margin-top: 150px;
+    max-width: 800px; /* largura maxima, pode ficar menor dependendo do tamanho da tela, mas nn pode ficar maior */
+    max-height: 590px; /* mesmo esquema, altura maxima */
+    border-radius: 25px; /* raio da borda, serve pra deixar redondinho, se quiser fazer um circulo é só deixar em 100%*/
+    border:2px solid black; /* borda: tamanho da borda - tipo (solido) - cor*/
+    background-color: #252525;
+}
+
+header.icon {
+    height: 110px;
+    width: 220px;
+    border-radius: 15px;
+    margin: 15px; /* margem do elemento em relação aos outros*/
+    padding: 15px; /* padding é a distancia do elemento em relação ao seu conteudo */
+    border:3px solid rgb(0, 0, 0); /* borda é borda */
+    background-color: #12943d;
+}
+
+header.icon > img#pfp {
+    display: block;
+    margin: 0 auto;
+    width: 210px;
+    border-radius: 10%;
+    border: 2px solid rgb(0, 0, 0);
+    transform: translateY(-90px) translateX(0px); /* essa desgraça aq vai mover a img em alguma direção, nesse caso, vai mover o eixo Y em -90px (vai fazer com q a fotinha fique meio pra fora do header) */
+}
+
+h1#name, h2#project-title, p.text {
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Roboto Serif';
+}
+
+h1#name {
+    font-size: 40px;
+    color: #12943d;
+    margin: 0 auto;
+    transform: translateY(-140px) translateX(130px);
+    text-shadow: 
+               -1px -1px 0px #000, 
+               -8px 5px 2px #000,                    
+                1px -1px 0px #000,                  
+                1px 0px 0px #000;
+}
+                            /* esses dois aqui são só pra fazer charme com meu nome, vcs podem tirar se quiserem, nn vai afetar em nada */
+h1#name > spam.sol {
+    color: #28babf;
+}
+
+p.text {
+    font-size: 25px;
+    transform: translateY(-140px) translateX(130px);
+    text-transform: lowercase; /* transforma o texto em minusculo, tbm da pra por uppercase, q deixa ele todo em maiusculo (nn importa como vc escreveu ele no hmtl, ele vai ficar TODO em maiusculo ou minusculo com isso) */
+    color: #28babf;
+      text-shadow: 
+               -1px -1px 0px #000, 
+               -8px 5px 2px #000,                    
+                1px -1px 0px #000,                  
+                1px 0px 0px #000;
+    
+}
+
+h2#project-title {
+    font-size: 25px;
+}
+
+div.projects{ /*caixa de baixo*/
+    transform: translateY(-70px) translateX(0px);
+
+    border-radius: 20px;
+    height: 340px;
+    margin: 15px;
+    padding: 15px;
+    border:3px solid rgb(0, 0, 0);
+    background-color: #12943d;
+}
+
+ /* o display flex faz com que os filhos fiquem flexiveis, sendo assim possivel por um elemento ao lado do outro, nesse caso, as duas sessões das listas que criei */
+
+div.listasFlex {
+    display: flex;
+}
+
+ul.lista{
+    padding: 15px;
+    margin: 0 auto;
+    text-align: center;
+    list-style: none; /* tira os pontinhos q ficam do lado dos itens da lista */
+}
+
+ /* transition: ease-in-out vai fazer com q a transição do elemento no estado normal para quando vai pro :hover (mouse por cima) tenha um tipo e tempo, nesse caso, ease-in-out seria algo como "mudar suavemente" e o 0.30s indica o tempo
+ 
+ pelo menos foi assim que me explicaram :D*/
+
+div.listasFlex > ul > li{
+    padding: 15px;
+    border-radius: 10px;
+    transition: ease-in-out 0.30s;
+}
+
+a {
+    width: 30px;
+    color: #000000;
+    text-decoration: none; /* ele tira o sublinhado do hyperlink */
+    font-family: 'Roboto Serif', sans-serif;
+}
+ /* o :hover é pra ele mudar algo qnd passa o mouse por cima*/
+div.listasFlex > ul > li:hover{
+    font-size: 18px;
+    background-color: #08653e;
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+/* é isso, não esqueçam de apagar ou editar os comentarios antes de apresentar, qlr coisa me marquem no dc :D*/
+
+/*Also: se vcs clicarem no projeto 1 por exemplo, vcs vão ser direcionado, pra isso é só ir no html e por o link do projeto de vcs em href="https://linkDoProjeto.com" dai ele vai abrir outra pagina nesse link, testem com o google ou youtube primeiro, dps mudem o nome de "projeto 1" pro nome do projeto de vcs em si :D*/
+
+/* pensando bem, vou deixar um exemplo pra vcs no ultimo lá */
+
+/* vo adicinar uma area de contatos tb, msm esquem pra mudar o de vcs, só ir no html e trocar o href do github e do insta*/
+
+div.contacts {
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    font-family: 'Roboto Serif';
+}
+
+div.contacts > p {
+    font-size: 15px;
+    text-align: center;
+}
+
+div.contactFlex > ul {
+    margin: 0px;
+    display: flex;
+    list-style: none;
+    text-align: center;
+    justify-content: end;
+}
+
+div.contactFlex > ul > li {
+    margin: 0 10px;
+    padding: 10px;
+}
+
+div.contactFlex > ul > li > a {
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Roboto';
+    text-decoration: underline;
+}
