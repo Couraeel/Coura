@@ -17,8 +17,8 @@ class product():
     
     def get_sell (self):
         z = self.get_buy()
-        sellv = (z / 100) * 15 #taxa
-        sellf = z
+        sellv = (self.get_buy() / 100) * 15 #taxa
+        sellf = self.get_buy()
         sellf += sellv #valor de acrescimo 
         return sellf #valor final
     
@@ -36,6 +36,16 @@ class product():
     def set_name (self, new_val):
         self.name = new_val
     
+    def set_buy (self, new_val):
+        self.buy = new_val
+        
+    def set_sell (self, new_val):
+        self.buy = new_val
+        sellv = (new_val / 100) * 15 #taxa
+        sellf = new_val
+        sellf += sellv #valor de acrescimo 
+        return sellf #valor final
+        
     def set_amount (self, new_val):
         self.amount = new_val
         
@@ -56,8 +66,8 @@ class product():
     #mostra os dados diretamente pelos atributos
     def mostra_dados(self):
         print(f"Nome: {self.name}")
-        print(f"Valor de compra: {self.name}")
-        print(f"Preço: {self.name}")
+        print(f"Valor de compra: {self.buy}")
+        print(f"Preço: {self.sell}")
         print(f"Quantidade: {self.amount}")
         print(f"Código: {self.cod}")
         print(f"Validade: {self.validity}")
@@ -65,6 +75,16 @@ class product():
     #mostrar os dados por get
     def dados (self):
         print(f"Nome do produto: {self.get_name()}")
+        print(f"Valor de compra: {self.get_buy()}")
+        print(f"Preço: {self.get_sell()}")
+        print(f"Quantidade: {self.get_amount()}")
+        print(f"Código: {self.get_cod()}")
+        print(f"Validade: {self.get_validity()}")
+        
+    def dados_set (self):
+        print(f"Nome do produto: {self.get_name()}")
+        print(f"Valor de compra: {self.get_buy()}")
+        print(f"Preço: {self.set_sell()}")
         print(f"Quantidade: {self.get_amount()}")
         print(f"Código: {self.get_cod()}")
         print(f"Validade: {self.get_validity()}")
@@ -87,14 +107,8 @@ if __name__ == '__main__':
             nome = str(input("Digite o nome do Produto:"))
             produto1.set_name ({nome})
             try:
-                compra = int(input("Digite o valor de compra deste Produto:"))
+                compra = float(input("Digite o valor de compra deste Produto:"))
                 produto1.set_buy ({compra})
-            except ValueError:
-                print("Dado incompativél")
-
-            try:
-                venda = int(input("Digite o preço deste Produto:"))
-                produto1.set_sell ({venda})
             except ValueError:
                 print("Dado incompativél")
 
@@ -116,7 +130,7 @@ if __name__ == '__main__':
             produto1.set_validity (validade)
 
             #mostrar os dados com set
-            produto1.dados()
+            produto1.dados_set()
 
             print("\n Digite 1 para 'sim' e 0 para 'não'")
             option2 = int(input("Você gostaria de adicionar outro produto?:"))
