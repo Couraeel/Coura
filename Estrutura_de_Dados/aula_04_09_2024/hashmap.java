@@ -18,3 +18,9 @@ public class bruh {
 		System.out.println(things);
 	}	
 }
+/**Arrays armazenam itens como uma coleção ordenada, linear e deve ser 
+acessado com um número de índice. No HashMap entanto, armazene 
+itens em pares " chave / valor " e você pode acessá-los por um 
+índice de outro tipo (por exemplo, a String).
+Um objeto é usado como uma chave (índice) para outro objeto (valor). 
+Pode armazenar diferentes tipos: String chaves e Integer valores, ou o mesmo tipo, como: String chaves e String valores.**/
