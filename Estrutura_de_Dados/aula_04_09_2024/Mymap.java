@@ -28,7 +28,7 @@ public class Mymap {
 
 import java.util.HashSet; // Import the HashSet class
 HashSet<String> cars = new HashSet<String>();
-Add Items
+//Add Items
 public class Main {
   public static void main(String[] args) {
     HashSet<String> cars = new HashSet<String>();
@@ -38,11 +38,11 @@ public class Main {
     cars.add("BMW");
     cars.add("Mazda");
     System.out.println(cars);
-Verificar se existe um item
+//Verificar se existe um item
 cars.contains("Mazda");
-Remove an Item
+//Remove an Item
 cars.remove("Volvo");
-Remove all
+//Remove all
 cars.clear();
-ArrayList Size
+//ArrayList Size
 cars.size();
