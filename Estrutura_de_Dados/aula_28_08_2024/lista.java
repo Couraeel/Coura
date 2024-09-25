@@ -44,3 +44,13 @@ public class atividade {
 			System.out.println("Soma dos impares: "+ indicesimpares);
 			
 }
+
+
+/**ArrayList<String> cars = new ArrayList<String>();
+    cars.add("Volvo");
+    cars.add("BMW");
+    cars.add("Ford");
+    cars.add("Mazda");
+    System.out.println(cars);
+    **/
+
