@@ -2,9 +2,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 public class Prova_molina {  
     public static void main(String[] args) {
-/**Uma função recursiva tem que seguir duas regras básicas:
-Ter uma condição de parada e Tornar o problema mais simples
-SE <condição de parada satisfeita> Retornar
+/**SE <condição de parada satisfeita> Retornar
 senão Divida o problema num caso mais simples utilizando recursão**/
     int a =2;
     int b =3;
@@ -60,9 +58,7 @@ public class ARRAY {
 //////////////////////////////////////////////////////////////////////////////////
 // HASHMAP
 public class Mymap {
-    /**enquanto Arrays armazenam itens de forma ordenada,linear e se é 
-    acessada pelo numero do índice, o hash map por outro lado armazena 
-    itens em pares (chave/valor). um objeto é usado como chave(indice) 
+    /**armazena itens em pares (chave/valor). um objeto é usado como chave(indice) 
     para outro objeto (valor) **/
     public static void main(String[] args) {
 		int i = 0;
@@ -91,7 +87,7 @@ public class Mymap {
 /** HashSet<String> cars = new HashSet<String>();
 //Add Items
 é uma coleção de itens onde cada item é único, nao é possível 
-acessar os itens diretamente mas sim verificar se os mesmos existem
+acessar os itens diretamente
 public class Main {
     public static void main(String[] args) {
         HashSet<String> cars = new HashSet<String>();
@@ -110,7 +106,8 @@ public class Main {
     //ArrayList Size
     cars.size();
 }}**/
-//InsertionSort - Sua teoria baseia-se em ordenar os valores da esquerda para a direita
-//pior caso - elementos desordenados (lista decrescente)/medio caso - elementos misturados
+//InsertionSort - ordenar os valores da esquerda para a direita
+//pior caso - elementos desordenados (lista decrescente)
+//medio caso - elementos misturados
 //melhor caso - elementos ordenados (lista crescente)
 
