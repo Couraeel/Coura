@@ -1,0 +1,97 @@
+{% extends 'vendas/base.html' %}
+
+{% block title %}Novo Produto - Sistema de Vendas{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>
+                <i class="fas fa-plus text-success me-2"></i>
+                Novo Produto
+            </h1>
+            <a href="{% url 'vendas:produto_list' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Voltar
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-edit me-2"></i>
+                    Dados do Produto
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.nome.id_for_label }}" class="form-label">
+                            <i class="fas fa-box text-success me-2"></i>
+                            {{ form.nome.label }}
+                        </label>
+                        {{ form.nome }}
+                        {% if form.nome.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.nome.errors %}
+                                    <i class="fas fa-exclamation-triangle text-danger me-1"></i>
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.valor.id_for_label }}" class="form-label">
+                            <i class="fas fa-dollar-sign text-success me-2"></i>
+                            {{ form.valor.label }}
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text">R$</span>
+                            {{ form.valor }}
+                        </div>
+                        {% if form.valor.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.valor.errors %}
+                                    <i class="fas fa-exclamation-triangle text-danger me-1"></i>
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="fas fa-save me-2"></i>
+                            Cadastrar Produto
+                        </button>
+                        <a href="{% url 'vendas:produto_list' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-body text-center">
+                <h6 class="card-title text-muted">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Dicas para o cadastro
+                </h6>
+                <ul class="list-unstyled text-muted small">
+                    <li><i class="fas fa-check text-success me-1"></i>Use nomes descritivos para os produtos</li>
+                    <li><i class="fas fa-check text-success me-1"></i>O valor deve ser maior que zero</li>
+                    <li><i class="fas fa-check text-success me-1"></i>Você pode editar o produto depois no painel admin</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

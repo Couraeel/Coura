@@ -1,0 +1,140 @@
+{% extends 'vendas/base.html' %}
+
+{% block title %}Vendas - Sistema de Vendas{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>
+                <i class="fas fa-receipt text-info me-2"></i>
+                Vendas
+            </h1>
+            <div>
+                <a href="{% url 'vendas:venda_create' %}" class="btn btn-success me-2">
+                    <i class="fas fa-plus me-2"></i>Nova Venda
+                </a>
+                <a href="{% url 'vendas:home' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Voltar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    Lista de Vendas
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if vendas %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Data/Hora</th>
+                                    <th width="200">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for venda in vendas %}
+                                <tr>
+                                    <td>
+                                        <i class="fas fa-user text-primary me-2"></i>
+                                        {{ venda.cliente.nome }}
+                                    </td>
+                                    <td>
+                                        <i class="fas fa-user text-primary me-2"></i>
+                                        {{ venda.data_hora|date:"d/m/Y H:i" }}
+                                    </td> 
+
+                                    <td>
+                                        <i class="badge bg-info fs-6">
+                                            R${{ venda.valor_total }}
+                                        </i>
+                                    </td>
+                                    <td>
+                                        <i class="badge bg-{{ venda.get_status_display_class }}">
+                                            {{ venda.get_status_display }}
+                                        </i>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{% url 'vendas:venda_detail' venda.pk %}" 
+                                               class="btn btn-sm btn-outline-primary" 
+                                               title="Ver detalhes">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            {% if venda.pode_ser_cancelada %}
+                                                <a href="{% url 'vendas:venda_cancel' venda.pk %}" 
+                                                   class="btn btn-sm btn-outline-danger" 
+                                                   title="Cancelar venda">
+                                                    <i class="fas fa-ban"></i>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    {% if is_paginated %}
+                    <nav aria-label="Navegação de páginas">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1">
+                                        <i class="fas fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                        <i class="fas fa-angle-left"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            
+                            <li class="page-item active">
+                                <span class="page-link">
+                                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                                </span>
+                            </li>
+                            
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                        <i class="fas fa-angle-right"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                                        <i class="fas fa-angle-double-right"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-receipt fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Nenhuma venda registrada</h5>
+                        <p class="text-muted">As vendas aparecerão aqui quando forem registradas.</p>
+                        <a href="{% url 'vendas:venda_create' %}" class="btn btn-success">
+                            <i class="fas fa-plus me-2"></i>Registrar Primeira Venda
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

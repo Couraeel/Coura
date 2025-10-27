@@ -1,0 +1,114 @@
+{% extends 'vendas/base.html' %}
+
+{% block title %}Início - Sistema de Vendas{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">
+            <i class="fas fa-chart-line text-primary me-2"></i>
+            Dashboard
+        </h1>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card text-center border-primary">
+            <div class="card-body">
+                <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                <h5 class="card-title">Total de Clientes</h5>
+                <h2 class="text-primary">{{ total_clientes }}</h2>
+                <a href="{% url 'vendas:cliente_list' %}" target="_blank" class="btn btn-outline-primary">
+                    Ver Clientes
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-3">
+        <div class="card text-center border-success">
+            <div class="card-body">
+                <i class="fas fa-box fa-3x text-success mb-3"></i>
+                <h5 class="card-title">Total de Produtos</h5>
+                <h2 class="text-success">{{total_produtos}}</h2>
+                <a href="{% url 'vendas:produto_list' %}" class="btn btn-outline-success">
+                    Ver Produtos
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-3">
+        <div class="card text-center border-info">
+            <div class="card-body">
+                <i class="fas fa-receipt fa-3x text-info mb-3"></i>
+                <h5 class="card-title">Total de Vendas</h5>
+                <h2 class="text-info">{{ total_vendas }}</h2>
+                <a href="{% url 'vendas:venda_list' %}" class="btn btn-outline-success">
+                    Ver Vendas
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-clock me-2"></i>
+                    Vendas Recentes
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if vendas_recentes %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Cliente</th>
+                                    <th>Data/Hora</th>
+                                    <th>Valor Total</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for venda in vendas_recentes %}
+                                <tr>
+                                    <td>{{ venda.id }}</td>
+                                    <td>{{ venda.cliente.nome }}</td>
+                                    <td>{{ venda.data_hora|date:"d/m/Y H:i" }}</td>
+                                    <td>R$ {{ venda.valor_total }}</td>
+                                    <td>
+                                        <a href="{% url 'vendas:venda_detail' venda.pk %}" 
+                                           class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center py-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Nenhuma venda registrada ainda.
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12 text-center">
+        <a href="{% url 'vendas:produto_creates' %}" class="btn btn-success btn-lg">
+            Cadastrar Novo Produto
+        </a>
+    </div>
+</div>
+{% endblock %} 

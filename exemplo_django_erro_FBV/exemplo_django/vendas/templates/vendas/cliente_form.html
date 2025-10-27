@@ -1,0 +1,84 @@
+{% extends 'vendas/base.html' %}
+
+{% block title %}
+    {% if object %}Editar Cliente{% else %}Novo Cliente{% endif %} - Sistema de Vendas
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>
+                <i class="fas fa-user{% if object %}-edit{% else %}-plus{% endif %} text-primary me-2"></i>
+                {% if object %}Editar Cliente{% else %}Novo Cliente{% endif %}
+            </h1>
+            <a href="{% url 'vendas:cliente_list' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Voltar
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    {% if object %}Editar dados do cliente{% else %}Cadastrar novo cliente{% endif %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.nome.id_for_label }}" class="form-label">
+                            <i class="fas fa-box text-success me-2"></i>
+                            {{ form.nome.label }}
+                        </label>
+                        {{ form.nome }}
+                        {% if form.nome.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.nome.errors %}
+                                    <i class="fas fa-exclamation-triangle text-danger me-1"></i>
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <!-- blabla   -->
+                    <div class="mb-3">
+                        <label for="{{ form.email.id_for_label }}" class="form-label">
+                            <i class="fas fa-box text-success me-2"></i>
+                            {{ form.email.label }}
+                        </label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.email.errors %}
+                                    <i class="fas fa-exclamation-triangle text-danger me-1"></i>
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                
+                    
+                    <!-- blabla   -->
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'vendas:cliente_list' %}" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-times me-2"></i>Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>
+                            {% if object %}Atualizar{% else %}Cadastrar{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

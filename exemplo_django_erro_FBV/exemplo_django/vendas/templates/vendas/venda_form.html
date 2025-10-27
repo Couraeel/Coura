@@ -1,0 +1,344 @@
+{% extends 'vendas/base.html' %}
+
+{% block title %}Nova Venda - Sistema de Vendas{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>
+                <i class="fas fa-plus-circle text-success me-2"></i>
+                Nova Venda
+            </h1>
+            <a href="{% url 'vendas:venda_list' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Voltar
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Dados da Venda
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post" id="venda-form">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.cliente.id_for_label }}" class="form-label">
+                            <i class="fas fa-user me-1"></i>{{ form.cliente.label }}
+                        </label>
+                        {{ form.cliente }}
+                        {% if form.cliente.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.cliente.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="{{ form.status.id_for_label }}" class="form-label">
+                            <i class="fas fa-flag me-1"></i>{{ form.status.label }}
+                        </label>
+                        {{ form.status }}
+                        {% if form.status.errors %}
+                            <div class="text-danger mt-1">
+                                {% for error in form.status.errors %}
+                                    <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success" id="criar-venda-btn">
+                            <i class="fas fa-save me-2"></i>Criar Venda
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-shopping-cart me-2"></i>
+                    Adicionar Produtos
+                </h5>
+            </div>
+            <div class="card-body">
+                <div id="produtos-container" style="display: none;">
+                    <div class="mb-3">
+                        <label for="produto-select" class="form-label">Produto</label>
+                        <select class="form-control" id="produto-select">
+                            <option value="">Selecione um produto</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="quantidade-input" class="form-label">Quantidade</label>
+                        <input type="number" class="form-control" id="quantidade-input" min="1" value="1">
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-primary" id="adicionar-produto-btn">
+                            <i class="fas fa-plus me-2"></i>Adicionar Produto
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="sem-venda-message" class="text-center py-3">
+                    <i class="fas fa-info-circle text-muted fa-2x mb-2"></i>
+                    <p class="text-muted">Crie a venda primeiro para adicionar produtos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4" id="produtos-venda-container" style="display: none;">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    Produtos da Venda
+                </h5>
+                <span class="badge bg-success fs-6" id="total-venda">
+                    Total: R$ 0,00
+                </span>
+            </div>
+            <div class="card-body">
+                <div id="produtos-lista">
+                    <div class="text-center py-3">
+                        <i class="fas fa-shopping-cart text-muted fa-2x mb-2"></i>
+                        <p class="text-muted">Nenhum produto adicionado ainda.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let vendaId = null;
+let produtos = [];
+
+// Carregar produtos quando a página carrega
+document.addEventListener('DOMContentLoaded', function() {
+    carregarProdutos();
+});
+
+// Carregar lista de produtos
+function carregarProdutos() {
+    fetch('/vendas/produtos/')
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const produtoSelect = document.getElementById('produto-select');
+            
+            // Limpar opções existentes
+            produtoSelect.innerHTML = '<option value="">Selecione um produto</option>';
+            
+            // Adicionar produtos da página
+            const produtoRows = doc.querySelectorAll('tbody tr');
+            produtoRows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                if (cells.length >= 3) {
+                    const nome = cells[0].textContent.trim();
+                    const valor = cells[1].textContent.trim().replace('R$ ', '');
+                    const produtoId = row.querySelector('a[href*="/editar/"]')?.href?.match(/\/(\d+)\/editar\//)?.[1];
+                    
+                    if (produtoId) {
+                        const option = document.createElement('option');
+                        option.value = produtoId;
+                        option.textContent = `${nome} - R$ ${valor}`;
+                        option.dataset.valor = valor;
+                        produtoSelect.appendChild(option);
+                    }
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao carregar produtos:', error);
+        });
+}
+
+// Criar venda
+document.getElementById('venda-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('{% url "vendas:venda_create" %}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            vendaId = data.venda_id;
+            document.getElementById('produtos-container').style.display = 'block';
+            document.getElementById('sem-venda-message').style.display = 'none';
+            document.getElementById('produtos-venda-container').style.display = 'block';
+            
+            // Desabilitar o formulário de venda
+            document.getElementById('venda-form').style.opacity = '0.6';
+            document.getElementById('criar-venda-btn').disabled = true;
+            
+            mostrarMensagem('Venda criada com sucesso!', 'success');
+        } else {
+            mostrarMensagem('Erro ao criar venda: ' + data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        mostrarMensagem('Erro ao criar venda', 'error');
+    });
+});
+
+// Adicionar produto
+document.getElementById('adicionar-produto-btn').addEventListener('click', function() {
+    const produtoId = document.getElementById('produto-select').value;
+    const quantidade = document.getElementById('quantidade-input').value;
+    
+    if (!produtoId) {
+        mostrarMensagem('Selecione um produto', 'warning');
+        return;
+    }
+    
+    if (!vendaId) {
+        mostrarMensagem('Crie a venda primeiro', 'warning');
+        return;
+    }
+    
+    const data = {
+        venda_id: vendaId,
+        produto_id: produtoId,
+        quantidade: parseInt(quantidade)
+    };
+    
+    fetch('{% url "vendas:adicionar_produto" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            mostrarMensagem(data.message, 'success');
+            atualizarListaProdutos();
+            document.getElementById('produto-select').value = '';
+            document.getElementById('quantidade-input').value = '1';
+        } else {
+            mostrarMensagem(data.message, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        mostrarMensagem('Erro ao adicionar produto', 'error');
+    });
+});
+
+// Atualizar lista de produtos
+function atualizarListaProdutos() {
+    if (!vendaId) return;
+    
+    fetch(`/vendas/vendas/${vendaId}/`)
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const produtosLista = document.getElementById('produtos-lista');
+            const totalVenda = document.getElementById('total-venda');
+            
+            // Extrair produtos da página de detalhes
+            const produtoRows = doc.querySelectorAll('tbody tr');
+            if (produtoRows.length > 0) {
+                let htmlProdutos = '';
+                let total = 0;
+                
+                produtoRows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length >= 4) {
+                        const nome = cells[0].textContent.trim();
+                        const valorUnitario = cells[1].textContent.trim().replace('R$ ', '');
+                        const quantidade = cells[2].textContent.trim();
+                        const subtotal = cells[3].textContent.trim().replace('R$ ', '');
+                        
+                        total += parseFloat(subtotal.replace(',', '.'));
+                        
+                        htmlProdutos += `
+                            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                                <div>
+                                    <strong>${nome}</strong><br>
+                                    <small class="text-muted">R$ ${valorUnitario} x ${quantidade}</small>
+                                </div>
+                                <div class="text-end">
+                                    <span class="badge bg-success">R$ ${subtotal}</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                produtosLista.innerHTML = htmlProdutos;
+                totalVenda.textContent = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+            } else {
+                produtosLista.innerHTML = `
+                    <div class="text-center py-3">
+                        <i class="fas fa-shopping-cart text-muted fa-2x mb-2"></i>
+                        <p class="text-muted">Nenhum produto adicionado ainda.</p>
+                    </div>
+                `;
+                totalVenda.textContent = 'Total: R$ 0,00';
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao atualizar lista:', error);
+        });
+}
+
+// Mostrar mensagem
+function mostrarMensagem(mensagem, tipo) {
+    const alertClass = tipo === 'success' ? 'alert-success' : 
+                     tipo === 'error' ? 'alert-danger' : 'alert-warning';
+    
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert ${alertClass} alert-dismissible fade show`;
+    alertDiv.innerHTML = `
+        ${mensagem}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    // Inserir no topo da página
+    const container = document.querySelector('.container');
+    container.insertBefore(alertDiv, container.firstChild);
+    
+    // Remover após 5 segundos
+    setTimeout(() => {
+        if (alertDiv.parentNode) {
+            alertDiv.remove();
+        }
+    }, 5000);
+}
+</script>
+{% endblock %}

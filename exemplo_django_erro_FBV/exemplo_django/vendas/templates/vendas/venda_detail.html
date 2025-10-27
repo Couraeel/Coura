@@ -1,0 +1,210 @@
+{% extends 'vendas/base.html' %}
+
+{% block title %}Venda #{{ venda.id }} - Sistema de Vendas{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>
+                <i class="fas fa-receipt text-info me-2"></i>
+                Venda #{{ venda.id }}
+            </h1>
+            <div>
+                {% if venda.pode_ser_cancelada %}
+                    <a href="{% url 'vendas:venda_cancel' venda.pk %}" class="btn btn-danger me-2">
+                        <i class="fas fa-ban me-2"></i>Cancelar Venda
+                    </a>
+                {% endif %}
+                <a href="{% url 'vendas:venda_list' %}" class="btn btn-outline-secondary me-2">
+                    <i class="fas fa-arrow-left me-2"></i>Voltar
+                </a>
+                <a href="{% url 'vendas:home' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-home me-2"></i>Início
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Informações da Venda
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-4">
+                        <strong>ID da Venda:</strong>
+                    </div>
+                    <div class="col-8">
+                        <span class="badge bg-secondary fs-6">#{{ venda.id }}</span>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-4">
+                        <strong>Data/Hora:</strong>
+                    </div>
+                    <div class="col-8">
+                        <i class="fas fa-calendar text-success me-2"></i>
+                        
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-4">
+                        <strong>Valor Total:</strong>
+                    </div>
+                    <div class="col-8">
+                        <span class="badge bg-success fs-5">
+                            R$ 0
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-4">
+                        <strong>Status:</strong>
+                    </div>
+                    <div class="col-8">
+                        <span class="badge bg-{{ venda.get_status_display_class }} fs-6">
+                            
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-user me-2"></i>
+                    Dados do Cliente
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-4">
+                        <strong>Nome:</strong>
+                    </div>
+                    <div class="col-8">
+                        <i class="fas fa-user text-primary me-2"></i>
+                        
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-4">
+                        <strong>E-mail:</strong>
+                    </div>
+                    <div class="col-8">
+                        <i class="fas fa-envelope text-info me-2"></i>
+                        
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-4">
+                        <strong>Cadastro:</strong>
+                    </div>
+                    <div class="col-8">
+                        <i class="fas fa-calendar text-success me-2"></i>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-shopping-cart me-2"></i>
+                    Produtos da Venda
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if venda.itemvenda_set.all %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Produto</th>
+                                    <th>Valor Unitário</th>
+                                    <th>Quantidade</th>
+                                    <th>Subtotal</th>
+                                    {% if venda.status != 'cancelado' %}
+                                        <th width="100">Ações</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                               <!-- CADÊ A LISTA DE PRODUTOS AQUI -->
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-active">
+                                    <th colspan="{% if venda.status != 'cancelado' %}4{% else %}3{% endif %}" class="text-end">Total da Venda:</th>
+                                    <th>
+                                        <span class="badge bg-primary fs-5">
+                                            R$ {{ venda.valor_total }}
+                                        </span>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="text-center py-3">
+                        <i class="fas fa-exclamation-triangle text-warning fa-2x mb-2"></i>
+                        <p class="text-muted">Nenhum produto associado a esta venda.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function removerProduto(itemId) {
+    if (!confirm('Tem certeza que deseja remover este produto da venda?')) {
+        return;
+    }
+    
+    const data = {
+        item_id: itemId
+    };
+    
+    fetch('{% url "vendas:remover_produto" %}', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Recarregar a página para atualizar os dados
+            location.reload();
+        } else {
+            alert('Erro ao remover produto: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro ao remover produto');
+    });
+}
+</script>
+{% endblock %} 

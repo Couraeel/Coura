@@ -1,0 +1,132 @@
+{% extends 'vendas/base.html' %}
+
+{% block title %}Clientes - Sistema de Vendas{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>
+                <i class="fas fa-users text-primary me-2"></i>
+                Clientes
+            </h1>
+            <div>
+                <a href="{% url 'vendas:cliente_create' %}" class="btn btn-primary me-2">
+                    <i class="fas fa-plus me-2"></i>Novo Cliente
+                </a>
+                <a href="{% url 'vendas:home' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>Voltar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    Lista de Clientes
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if clientes %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>E-mail</th>
+                                    <th>Data de Cadastro</th>
+                                    <th width="150">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cliente in clientes %}
+                                <tr>
+                                    <td>
+                                        <i class="fas fa-user text-primary me-2"></i>
+                                        {{ cliente.nome }}
+                                    </td>
+                                    <td>
+                                        <i class="fas fa-envelope text-info me-2"></i>
+                                        {{ cliente.email }}
+                                    </td>
+                                    <td>
+                                        <i class="fas fa-calendar text-success me-2"></i>
+                                        {{ cliente.data_cadastro|date:"d/m/Y H:i" }}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{% url 'vendas:cliente_update' cliente.pk %}" 
+                                               class="btn btn-sm btn-outline-primary" 
+                                               title="Editar cliente">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{% url 'vendas:cliente_delete' cliente.pk %}" 
+                                               class="btn btn-sm btn-outline-danger" 
+                                               title="Excluir cliente">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    {% if is_paginated %}
+                    <nav aria-label="Navegação de páginas">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1">
+                                        <i class="fas fa-angle-double-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                        <i class="fas fa-angle-left"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            
+                            <li class="page-item active">
+                                <span class="page-link">
+                                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                                </span>
+                            </li>
+                            
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                        <i class="fas fa-angle-right"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                                        <i class="fas fa-angle-double-right"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">Nenhum cliente cadastrado</h5>
+                        <p class="text-muted">Os clientes aparecerão aqui quando forem cadastrados.</p>
+                        <a href="{% url 'vendas:cliente_create' %}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>Cadastrar Primeiro Cliente
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

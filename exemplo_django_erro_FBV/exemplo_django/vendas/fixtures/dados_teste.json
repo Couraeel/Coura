@@ -1,0 +1,226 @@
+[
+    {
+        "model": "vendas.cliente",
+        "pk": 1,
+        "fields": {
+            "nome": "João Silva",
+            "email": "joao.silva@email.com",
+            "data_cadastro": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "vendas.cliente",
+        "pk": 2,
+        "fields": {
+            "nome": "Maria Santos",
+            "email": "maria.santos@email.com",
+            "data_cadastro": "2024-01-16T14:30:00Z"
+        }
+    },
+    {
+        "model": "vendas.cliente",
+        "pk": 3,
+        "fields": {
+            "nome": "Pedro Oliveira",
+            "email": "pedro.oliveira@email.com",
+            "data_cadastro": "2024-01-17T09:15:00Z"
+        }
+    },
+    {
+        "model": "vendas.cliente",
+        "pk": 4,
+        "fields": {
+            "nome": "Ana Costa",
+            "email": "ana.costa@email.com",
+            "data_cadastro": "2024-01-18T16:45:00Z"
+        }
+    },
+    {
+        "model": "vendas.cliente",
+        "pk": 5,
+        "fields": {
+            "nome": "Carlos Ferreira",
+            "email": "carlos.ferreira@email.com",
+            "data_cadastro": "2024-01-19T11:20:00Z"
+        }
+    },
+    {
+        "model": "vendas.produto",
+        "pk": 1,
+        "fields": {
+            "nome": "Notebook Dell Inspiron",
+            "valor": "2499.99",
+            "data_cadastro": "2024-01-15T08:00:00Z"
+        }
+    },
+    {
+        "model": "vendas.produto",
+        "pk": 2,
+        "fields": {
+            "nome": "Mouse Wireless Logitech",
+            "valor": "89.90",
+            "data_cadastro": "2024-01-15T08:30:00Z"
+        }
+    },
+    {
+        "model": "vendas.produto",
+        "pk": 3,
+        "fields": {
+            "nome": "Teclado Mecânico RGB",
+            "valor": "299.90",
+            "data_cadastro": "2024-01-15T09:00:00Z"
+        }
+    },
+    {
+        "model": "vendas.produto",
+        "pk": 4,
+        "fields": {
+            "nome": "Monitor LG 24\" Full HD",
+            "valor": "599.90",
+            "data_cadastro": "2024-01-15T09:30:00Z"
+        }
+    },
+    {
+        "model": "vendas.produto",
+        "pk": 5,
+        "fields": {
+            "nome": "Webcam HD 1080p",
+            "valor": "159.90",
+            "data_cadastro": "2024-01-15T10:00:00Z"
+        }
+    },
+    {
+        "model": "vendas.produto",
+        "pk": 6,
+        "fields": {
+            "nome": "Headset Gamer com Microfone",
+            "valor": "199.90",
+            "data_cadastro": "2024-01-15T10:30:00Z"
+        }
+    },
+    {
+        "model": "vendas.venda",
+        "pk": 1,
+        "fields": {
+            "cliente": 1,
+            "data_hora": "2024-01-20T10:00:00Z",
+            "valor_total": "2589.89"
+        }
+    },
+    {
+        "model": "vendas.venda",
+        "pk": 2,
+        "fields": {
+            "cliente": 2,
+            "data_hora": "2024-01-21T14:30:00Z",
+            "valor_total": "599.90"
+        }
+    },
+    {
+        "model": "vendas.venda",
+        "pk": 3,
+        "fields": {
+            "cliente": 3,
+            "data_hora": "2024-01-22T09:15:00Z",
+            "valor_total": "449.80"
+        }
+    },
+    {
+        "model": "vendas.venda",
+        "pk": 4,
+        "fields": {
+            "cliente": 4,
+            "data_hora": "2024-01-23T16:45:00Z",
+            "valor_total": "199.90"
+        }
+    },
+    {
+        "model": "vendas.venda",
+        "pk": 5,
+        "fields": {
+            "cliente": 5,
+            "data_hora": "2024-01-24T11:20:00Z",
+            "valor_total": "89.90"
+        }
+    },
+    {
+        "model": "vendas.itemvenda",
+        "pk": 1,
+        "fields": {
+            "venda": 1,
+            "produto": 1,
+            "quantidade": 1,
+            "valor_unitario": "2499.99"
+        }
+    },
+    {
+        "model": "vendas.itemvenda",
+        "pk": 2,
+        "fields": {
+            "venda": 1,
+            "produto": 2,
+            "quantidade": 1,
+            "valor_unitario": "89.90"
+        }
+    },
+    {
+        "model": "vendas.itemvenda",
+        "pk": 3,
+        "fields": {
+            "venda": 2,
+            "produto": 4,
+            "quantidade": 1,
+            "valor_unitario": "599.90"
+        }
+    },
+    {
+        "model": "vendas.itemvenda",
+        "pk": 4,
+        "fields": {
+            "venda": 3,
+            "produto": 3,
+            "quantidade": 1,
+            "valor_unitario": "299.90"
+        }
+    },
+    {
+        "model": "vendas.itemvenda",
+        "pk": 5,
+        "fields": {
+            "venda": 3,
+            "produto": 2,
+            "quantidade": 1,
+            "valor_unitario": "89.90"
+        }
+    },
+    {
+        "model": "vendas.itemvenda",
+        "pk": 6,
+        "fields": {
+            "venda": 3,
+            "produto": 5,
+            "quantidade": 1,
+            "valor_unitario": "159.90"
+        }
+    },
+    {
+        "model": "vendas.itemvenda",
+        "pk": 7,
+        "fields": {
+            "venda": 4,
+            "produto": 6,
+            "quantidade": 1,
+            "valor_unitario": "199.90"
+        }
+    },
+    {
+        "model": "vendas.itemvenda",
+        "pk": 8,
+        "fields": {
+            "venda": 5,
+            "produto": 2,
+            "quantidade": 1,
+            "valor_unitario": "89.90"
+        }
+    }
+] 

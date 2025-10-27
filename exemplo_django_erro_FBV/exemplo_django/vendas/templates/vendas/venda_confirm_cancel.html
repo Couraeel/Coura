@@ -1,0 +1,94 @@
+{% extends 'vendas/base.html' %}
+
+{% block title %}Cancelar Venda - Sistema de Vendas{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>
+                <i class="fas fa-times-circle text-danger me-2"></i>
+                Cancelar Venda
+            </h1>
+            <a href="{% url 'vendas:venda_detail' object.pk %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Voltar
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Confirmar Cancelamento
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-warning me-2"></i>
+                    <strong>Atenção!</strong> Esta ação não pode ser desfeita.
+                </div>
+                
+                <p class="mb-3">Tem certeza que deseja cancelar a venda:</p>
+                
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="fas fa-receipt text-primary me-2"></i>
+                            Venda #{{ object.id }}
+                        </h6>
+                        <p class="card-text mb-1">
+                            <i class="fas fa-user text-info me-2"></i>
+                            <strong>Cliente:</strong> {{ object.cliente.nome }}
+                        </p>
+                        <p class="card-text mb-1">
+                            <i class="fas fa-dollar-sign text-success me-2"></i>
+                            <strong>Valor Total:</strong> R$ {{ object.valor_total }}
+                        </p>
+                        <p class="card-text mb-1">
+                            <i class="fas fa-flag text-warning me-2"></i>
+                            <strong>Status Atual:</strong> 
+                            <span class="badge bg-{{ object.get_status_display_class }}">
+                                {{ object.get_status_display }}
+                            </span>
+                        </p>
+                        <p class="card-text mb-0">
+                            <i class="fas fa-calendar text-info me-2"></i>
+                            <strong>Data da Venda:</strong> {{ object.data_hora|date:"d/m/Y H:i" }}
+                        </p>
+                    </div>
+                </div>
+                
+                {% if not object.pode_ser_cancelada %}
+                    <div class="alert alert-danger mt-3" role="alert">
+                        <i class="fas fa-ban me-2"></i>
+                        <strong>Esta venda não pode ser cancelada!</strong>
+                        {% if object.status == 'cancelado' %}
+                            A venda já está cancelada.
+                        {% else %}
+                            A venda não pode ser cancelada pois já passou de 7 dias da data da venda.
+                        {% endif %}
+                    </div>
+                {% endif %}
+                
+                <form method="post" class="mt-4">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'vendas:venda_detail' object.pk %}" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-times me-2"></i>Cancelar
+                        </a>
+                        {% if object.pode_ser_cancelada %}
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-ban me-2"></i>Cancelar Venda
+                            </button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

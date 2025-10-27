@@ -1,0 +1,69 @@
+{% extends 'vendas/base.html' %}
+
+{% block title %}Excluir Produto - Sistema de Vendas{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>
+                <i class="fas fa-box-open text-danger me-2"></i>
+                Excluir Produto
+            </h1>
+            <a href="{% url 'vendas:produto_list' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Voltar
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    Confirmar Exclusão
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-warning me-2"></i>
+                    <strong>Atenção!</strong> Esta ação não pode ser desfeita.
+                </div>
+                
+                <p class="mb-3">Tem certeza que deseja excluir o produto:</p>
+                
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="fas fa-box text-success me-2"></i>
+                            {{ object.nome }}
+                        </h6>
+                        <p class="card-text mb-1">
+                            <i class="fas fa-dollar-sign text-success me-2"></i>
+                            <strong>Valor:</strong> R$ {{ object.valor }}
+                        </p>
+                        <p class="card-text mb-0">
+                            <i class="fas fa-calendar text-info me-2"></i>
+                            <strong>Cadastrado em:</strong> {{ object.data_cadastro|date:"d/m/Y H:i" }}
+                        </p>
+                    </div>
+                </div>
+                
+                <form method="post" class="mt-4">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'vendas:produto_list' %}" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-times me-2"></i>Cancelar
+                        </a>
+                        <button type="" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Excluir Produto
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
