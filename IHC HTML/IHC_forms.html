@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="card.css">
+
+<body>
+    <h2 class="titulo_home">Atividade Html IHC</h2>
+    <h2 class="titulo_home">Passe o mouse sobre o cartão pfv</h2>
+    <div class="wrapper">
+        <div class="card">
+            
+            <!-- Frente do cartão -->
+            <div class="front-page" style="background-image: url(Desenho\ De\ Et.jpg)">
+            </div>
+            
+            <!-- Verso do cartão -->
+            <div class="back-page" style="background-image: url(fas_da_keila.jpg)">
+                <h2 id="amor">Te amamos Pr. Keila S2</h2>
+                <h2 id="assinatura">Ass:Lorena e Rafael</h2>
+            </div>
+            
+        </div>
+    </div>
+
+    <br><br>
+    
+    <div class="texto">
+        <h2>Exercicio 1</h2>
+        <form action="/enviar" method="post">
+            <label for="nome" >Nome:</label>
+            <input type="text" id="nome" name="nome" class="div-inputs">
+            <br><br>
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div class="texto">
+        <h2 >Exercicio 2</h2>
+        <form action="/enviar" method="post">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" class="div-inputs" required> <!--alteração para o input ser obrigatorio-->
+            <br><br>
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div class="texto">
+        <h2 >Exercicio 3</h2>
+        <form action="/enviar" method="post"> <!--alteração para possuir os campos nome e email-->
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" class="div-inputs" required>
+            <br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="div-inputs" required>
+            <br><br>
+
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div class="texto">
+        <h2>Exercicio 4</h2>
+        <form action="/enviar" method="post"> 
+            <label for="nome" >Nome:</label>
+            <input type="text" id="nome" name="nome" class="div-inputs" required>
+            <br>
+
+            <label for="email" >Email:</label>
+            <input type="email" id="email" name="email" class="div-inputs" required>
+            <br>
+            <label>
+                <input type="checkbox" name="novidades"> <!--alteração para possuir uma caixa para receber as novidades-->
+                <p >Deseja receber as novidades por email?</p>
+            </label><br>
+
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div class="texto">
+        <h2>Exercicio 5</h2>
+        <form action="/enviar" method="post"> 
+            <label for="nome" >Nome:</label>
+            <input type="text" id="nome" name="nome" class="div-inputs" required>
+            <br>
+
+            <label for="email" >Email:</label>
+            <input type="email" id="email" name="email" class="div-inputs" required>
+            <br>
+            <label>
+                <input type="checkbox" name="novidades"> 
+                <p >Deseja receber as novidades por email?</p>
+            </label>
+
+            <p>Gêneros</p>
+            <label><input type="radio" name="genero" value="masculino">Masculino</label> <!--alteração para possuir botões de opção sobre os generos-->
+            <label><input type="radio" name="genero" value="feminino">Feminino</label>
+            <br><br>
+
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div class="texto">
+        <h2>Exercicio 7</h2>
+        <form action="/enviar" method="post"> 
+            <label for="nome" >Nome:</label>
+            <input type="text" id="nome" name="nome" class="div-inputs" required>
+            <br>
+
+            <label for="email" >Email:</label>
+            <input type="email" id="email" name="email" class="div-inputs" required>
+            <br>
+            <label>
+                <input type="checkbox" name="novidades"> 
+                <p >Deseja receber as novidades por email?</p>
+            </label>
+            <br>
+            <p>Gêneros</p>
+            <label><input type="radio" name="genero" value="masculino">Masculino</label> 
+            <label><input type="radio" name="genero" value="feminino">Feminino</label>
+            <br>
+
+            <label for="perfil">Perfil:</label> <!--alteração para possuir uma lista com as opcoes de prof, estudante e visitante-->
+            <select id="perfil" name="perfil">
+                <option value="estudante">Estudante</option>
+                <option value="professor">Professor</option>
+                <option value="visitante">Visitante</option>
+            </select>
+            <br><br>
+
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div class="texto">
+        <h2>Exercicio 8</h2>
+        <form action="/enviar" method="post"> 
+            <label for="nome" >Nome:</label>
+            <input type="text" id="nome" name="nome" class="div-inputs" required> 
+            <br>
+
+            <label for="email" >Email:</label>
+            <input type="email" id="email" name="email" class="div-inputs" required>
+            <br>
+
+            <label for="senha">Senha:</label> <!--alteração para possuir senha e confirmação de senha-->
+            <input type="password" id="senha" name="senha" class="div-inputs" required>
+            <br>
+
+            <label for="confirma">Confirmar Senha:</label> 
+            <input type="password" id="confirma" name="confirma" class="div-inputs" required>
+            <br>
+            
+            <label>
+                <input type="checkbox" name="novidades"> 
+                <p >Deseja receber as novidades por email?</p>
+            </label>
+            <br>
+            <p>Gêneros</p>
+            <label><input type="radio" name="genero" value="masculino">Masculino</label> 
+            <label><input type="radio" name="genero" value="feminino">Feminino</label>
+            <br>
+
+            <label for="perfil">Perfil:</label> 
+            <select id="perfil" name="perfil">
+                <option value="estudante">Estudante</option>
+                <option value="professor">Professor</option>
+                <option value="visitante">Visitante</option>
+            </select>
+            <br><br>
+
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div class="texto">
+        <h2>Exercicio 9</h2>
+        <form action="/enviar" method="post"> 
+            <label for="nome" >Nome:</label>
+            <input type="text" id="nome" name="nome" class="div-inputs" required>
+            <br>
+
+            <label for="email" >Email:</label>
+            <input type="email" id="email" name="email" class="div-inputs" required>
+            <br>
+
+            <label for="senha">Senha:</label> 
+            <input type="password" id="senha" name="senha" class="div-inputs" required>
+            <br>
+
+            <label for="confirma">Confirmar Senha:</label> 
+            <input type="password" id="confirma" name="confirma" class="div-inputs" class="div-inputs" required>
+            <br>
+
+            <label for="idade">Idade:</label>
+            <input type="number" id="idade" name="idade" min="18" max="99" class="div-inputs"> <!--alteração para inserir uma idade entre 18 e 99-->
+            <br>
+            
+            <label>
+                <input type="checkbox" name="novidades"> 
+                <p >Deseja receber as novidades por email?</p>
+            </label>
+            <br>
+            <p>Gêneros</p>
+            <label><input type="radio" name="genero" value="masculino">Masculino</label> 
+            <label><input type="radio" name="genero" value="feminino">Feminino</label>
+            <br>
+
+            <label for="perfil">Perfil:</label> 
+            <select id="perfil" name="perfil">
+                <option value="estudante">Estudante</option>
+                <option value="professor">Professor</option>
+                <option value="visitante">Visitante</option>
+            </select>
+            <br><br>
+
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div class="texto">
+        <h2>Exercicio 10</h2>
+        <form action="/enviar" method="post"> 
+            <label for="nome" >Nome:</label>
+            <input type="text" id="nome" name="nome" class="div-inputs" required>
+            <br>
+
+            <label for="email" >Email:</label>
+            <input type="email" id="email" name="email" class="div-inputs" required>
+            <br>
+
+            <p>Gêneros</p>
+            <label><input type="radio" name="genero" value="masculino">Masculino</label> 
+            <label><input type="radio" name="genero" value="feminino">Feminino</label>
+            <br>
+
+            <label for="perfil">Perfil:</label> 
+            <select id="perfil" name="perfil">
+                <option value="estudante">Estudante</option>
+                <option value="professor">Professor</option>
+                <option value="visitante">Visitante</option>
+            </select>
+            <br>
+
+            <label for="comentario">Comentário</label>
+            <textarea id="comentario" name="comentario"></textarea>
+            <br><br>
+
+            <button type="submit" class="btn-enviar">Enviar</button> <!--formulario que contenha: nome, email, perfil, comentario e botao de envio-->
+        </form>
+    </div>
+
+    <br><br>
+
+    <div class="texto">
+        <h2>DESAFIO</h2>
+        <form action="/enviar" method="post"> 
+            <label for="nome" >Nome:</label>
+            <input type="text" id="nome" name="nome" class="div-inputs" required>
+            <br>
+
+            <label for="email" >Email:</label>
+            <input type="email" id="email" name="email" class="div-inputs" required>
+            <br>
+
+            <label for="senha">Senha:</label> 
+            <input type="password" id="senha" name="senha" class="div-inputs" required>
+            <br>
+
+            <label for="confirma">Confirmar Senha:</label> 
+            <input type="password" id="confirma" name="confirma" class="div-inputs" required>
+            <br>
+            
+            <label for="idade">Idade:</label>
+            <input type="number" id="idade" name="idade" min="18" max="99" class="div-inputs"> <!--alteração para inserir uma idade entre 18 e 99-->
+            <br>
+
+            <p>Gêneros</p>
+            <label><input type="radio" name="genero" value="masculino" >Masculino</label> 
+            <label><input type="radio" name="genero" value="feminino" >Feminino</label>
+            <br>
+
+            <label for="perfil">Perfil:</label> 
+            <select id="perfil" name="perfil">
+                <option value="estudante">Estudante</option>
+                <option value="professor">Professor</option>
+                <option value="visitante">Visitante</option>
+            </select>
+            <br>
+
+            
+
+            <label for="comentario">Comentário</label>
+            <textarea id="comentario" name="comentario"></textarea>
+            <br>
+
+            <label>
+                <p >Deseja receber as novidades por email?</p>
+                <input type="checkbox" name="novidades"> 
+            </label>
+            <br><br>
+
+            <button type="submit" class="btn-enviar">Enviar</button>
+        </form>    
+    </div>
+    <br><br>
+
+</body>
+
+</html>
+
